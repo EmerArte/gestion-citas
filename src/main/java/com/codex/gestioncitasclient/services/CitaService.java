@@ -1,5 +1,6 @@
 package com.codex.gestioncitasclient.services;
 
+import com.codex.gestioncitasclient.dto.CitaDto;
 import com.codex.gestioncitasclient.dto.CrearCitaDto;
 import com.codex.gestioncitasclient.dto.RespuestaDto;
 import com.codex.gestioncitasclient.entity.Cita;
@@ -95,7 +96,26 @@ public class CitaService {
             return new RespuestaDto("Error al obtener las citas", "500", null);
         }
     }
-
+    public RespuestaDto actualizarCita(CitaDto cita){
+        try{
+            Cita citaActualizada = new Cita();
+            citaActualizada.setId(cita.getId());
+            citaActualizada.setFecha(cita.getFecha());
+            citaActualizada.setHora(cita.getHora());
+            citaActualizada.setEstado(cita.getEstado());
+            citaActualizada.setTipoDocumentoIdDoctor(cita.getTipoDocumentoIdDoctor());
+            citaActualizada.setNumDocumentoDoctor(cita.getNumDocumentoDoctor());
+            citaActualizada.setTipoDocumentoIdUsuario(cita.getTipoDocumentoIdUsuario());
+            citaActualizada.setNumDocumentoUsuario(cita.getNumDocumentoUsuario());
+            citaActualizada.setFechaCreacion(cita.getFechaCreacion());
+            citaActualizada.setFechaModificacion(LocalDate.now());
+            citasRepository.actualizarCita(citaActualizada);
+            return new RespuestaDto("Cita actualizada correctamente", "200", citaActualizada);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new RespuestaDto("Error al actualizar la cita", "500", null);
+        }
+    }
     public RespuestaDto obtenerCitasPorUsuario(String numDocumentoUsuario, Integer tipoDocumentoUsuario) {
         try{
             List<Cita> citas = citasRepository.obtenerCitasPorUsuario(numDocumentoUsuario, tipoDocumentoUsuario);

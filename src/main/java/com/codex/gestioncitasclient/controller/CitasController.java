@@ -1,5 +1,6 @@
 package com.codex.gestioncitasclient.controller;
 
+import com.codex.gestioncitasclient.dto.CitaDto;
 import com.codex.gestioncitasclient.dto.CrearCitaDto;
 import com.codex.gestioncitasclient.dto.RespuestaDto;
 import com.codex.gestioncitasclient.services.CitaService;
@@ -17,6 +18,11 @@ public class CitasController {
     @PostMapping("/citas/crear")
     public ResponseEntity<RespuestaDto> crearCita(@RequestBody CrearCitaDto crearCitaDto) {
         RespuestaDto respuestaDto = citasService.crearCita(crearCitaDto);
+        return ResponseEntity.ok(respuestaDto);
+    }
+    @PutMapping("/citas/actualizar")
+    public ResponseEntity<RespuestaDto> actualizarCita(@RequestBody CitaDto citaDto) {
+        RespuestaDto respuestaDto = citasService.actualizarCita(citaDto);
         return ResponseEntity.ok(respuestaDto);
     }
     @GetMapping("/citas/obtener")
