@@ -36,4 +36,10 @@ public class CitasController {
         RespuestaDto respuestaDto = citasService.obtenerCitasPorDoctor(numDocumento);
         return ResponseEntity.ok(respuestaDto);
     }
+
+    @GetMapping("/citas/obtener/usuario/{tipoDocumentoId}/{numDocumento}")
+    public ResponseEntity<RespuestaDto> obtenerCitasPorUsuario(@PathVariable String numDocumento, @PathVariable Integer tipoDocumentoId) {
+        RespuestaDto respuestaDto = citasService.obtenerCitasPorUsuario(numDocumento, tipoDocumentoId);
+        return ResponseEntity.ok(respuestaDto);
+    }
 }
